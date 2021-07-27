@@ -1,0 +1,32 @@
+﻿<Window x:Class="TCP_Client.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+		xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+		xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        WindowStartupLocation="CenterScreen"
+		Height="150"
+		Width="350"
+        Title="{Binding Title.Value}" >
+
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Closed">
+			<ri:EventToReactiveCommand Command="{Binding ClosedCommand}" />
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+
+	<StackPanel Orientation="Vertical">
+		<Button Content="データ送信" Command="{Binding SendCommand}" Margin="10,10,0,10" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+		<StackPanel Orientation="Horizontal">
+			<TextBlock Text="送信データ" VerticalAlignment="Center" Margin="10,0,0,0"/>
+			<TextBox Text="{Binding SendData.Value, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Width="200" Height="20" VerticalAlignment="Center" Margin="10,0,0,0"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+			<TextBlock Text="受信データ" VerticalAlignment="Center" Margin="10,0,0,0"/>
+			<Border BorderThickness="0.3" BorderBrush="Black" Margin="10,0,0,0">
+				<TextBlock Text="{Binding ReceptionData.Value, UpdateSourceTrigger=PropertyChanged}" Width="200" Height="20" VerticalAlignment="Center" />
+			</Border>
+		</StackPanel>
+	</StackPanel>
+</Window>
