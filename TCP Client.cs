@@ -138,8 +138,8 @@ namespace TCP_Client
 					// ConnectAsync前にSetBufferメソッドを実行するとConnectAsync実行後自動的にデータが送信される
 					e.SetBuffer(sendData, 0, sendData.Length);
 					e.RemoteEndPoint = new IPEndPoint(serverAddress, port);
-					e.Completed += new EventHandler<SocketAsyncEventArgs>(ConnectCompleted);
-					/***** PLCへ接続 *****/
+					e.Completed += new EventHandler<SocketAsyncEventArgs>(Completed);
+					/***** TCPサーバへ接続 *****/
 					if (client.ConnectAsync(e) == true)
 					{
 						// 接続がタイムアウトなら
@@ -197,7 +197,7 @@ namespace TCP_Client
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void ConnectCompleted(object sender, SocketAsyncEventArgs e)
+		private void Completed(object sender, SocketAsyncEventArgs e)
 		{
 			switch (e.LastOperation)
 			{
